@@ -1,0 +1,34 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@page {
+  size: A4;
+}
+
+@media print {
+  @page :footer {
+    display: none;
+  }
+
+  .hide-print {
+    display: none;
+  }
+
+  @page :header {
+    display: none;
+  }
+}
