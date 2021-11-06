@@ -15,6 +15,15 @@ a {
   box-sizing: border-box;
 }
 
+.alert {
+  background-color: #fff3cd;
+  padding: 10px;
+}
+
+.show-print {
+  display: none;
+}
+
 @page {
   size: A4;
 }
@@ -26,6 +35,9 @@ a {
 
   .hide-print {
     display: none;
+  }
+  .show-print {
+    display: block;
   }
 
   @page :header {
