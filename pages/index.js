@@ -1,33 +1,12 @@
 import { useEffect, useCallback, useState, useRef } from "react";
-import Head from "../src/components/Head"
 import QRCode from "react-qr-code";
-
-import styles from '../styles/Home.module.css';
 import { Account } from "thenewboston";
 
-const useIsOnline = () => {
-  const [isOnline, setIsOnline] = useState(false)
+import Head from "../src/components/Head"
 
-  const setOffline = () => setIsOnline(false)
-  const setOnline = () => setIsOnline(true)
+import styles from '../styles/Home.module.css';
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.addEventListener("offline", setOffline)
-      window.addEventListener("online", () => setOnline)
-    }
-
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener("offline", setOffline)
-        window.removeEventListener("online", () => setOnline)
-      }
-    }
-  }, [isOnline])
-
-  return isOnline
-}
-
+import { useIsOnline } from '../src/hooks/useIsOnline'
 
 export default function Home() {
   const isOnline = useIsOnline()
@@ -39,39 +18,41 @@ export default function Home() {
 
   const AccountAreaRef = useRef(null)
 
-  const generateAccount = useCallback(() => {
-    if (isLocked) return
-    console.log(isLocked, 'here')
+  const generateAccount = () => {
     const account = new Account()
     setAccountNumber(account.accountNumberHex)
     setPrivateKey(account.signingKeyHex)
-  }, [isLocked])
+  }
 
   const handleMouseMove = useCallback((e) => {
-    if (isLocked) return
-    else if (!isOnline) generateAccount()
-  }, [isOnline, isLocked])
-
-  // on Mount
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !isOnline && !isLocked) {
-      AccountAreaRef?.current?.addEventListener('mousemove', handleMouseMove)
-    }
-    if (!isOnline) generateAccount()
-  }, [isOnline, handleMouseMove, isLocked])
+    generateAccount()
+  }, [])
 
   const lockAccount = useCallback(() => {
-    toggleLock(true)
-  }, [toggleLock])
+    toggleLock(!isLocked)
+  }, [toggleLock, isLocked])
+
+
+  useEffect(() => {
+    if (!isLocked && !isOnline && typeof window !== 'undefined') {
+      AccountAreaRef?.current?.addEventListener('mousemove', handleMouseMove)
+    } else {
+      AccountAreaRef?.current?.removeEventListener('mousemove', handleMouseMove)
+    }
+
+    return () => {
+      AccountAreaRef?.current?.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [isLocked, isOnline, handleMouseMove])
 
   return (
     <div className={styles.container}>
       <Head />
-      <div className="hide-print">
+      <div className="hide-print info-box">
+        <h1>Online Status:</h1>
+        <h2>{isOnline ? "You are Online" : "You are Offline"}</h2>
 
-        <h1>Online Status: {isOnline ? "You are Online" : "You are Offline"}</h1>
-
-        <p>Origami is a paper wallet generator app to be used when the browser is offline.</p>
+        <p>Origami is a paper wallet generator for thenewboston blockchain, to be used when the browser is offline.</p>
         <p>The user can generate custom paper wallets which can be printed offline.</p>
 
         {isOnline && (
@@ -83,34 +64,55 @@ export default function Home() {
 
       {!isOnline && (
         <div>
-          <button className="hide-print" onClick={lockAccount}>Lock Account {isLocked}</button>
-          <p>{isLocked.toString()}</p>
+          <div className="hide-print" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', flex: 1, padding: 10, alignItems: 'center' }}>
+            <p className="hide-print">Account Locked: {isLocked ? "Locked" : "Unlocked"}</p>
 
-          <div ref={AccountAreaRef}>
+
+            <div className={`hide-print area ${isLocked ? 'locked' : ''}`} ref={AccountAreaRef} style={{ borderWidth: 5, borderStyle: 'dashed', padding: 10, width: 200 }}>
+              <div><p>Move your cursor within the dashed area</p></div>
+              <button className="hide-print" style={{ marginBottom: 10 }} onClick={lockAccount}>{isLocked ? 'Unlock' : 'Lock'} Account</button>
+            </div>
+          </div>
+
+
+          <div className="content-container">
             {accountNumber && (
-              <>
-                <h1>Public Key</h1>
-                <h2>Account Number / Deposit / Verify</h2>
+              <div className="keyContainer">
+                <h2>Public Key / Account No.</h2>
+                <h3>Deposit / Verify</h3>
                 <div>
                   <p style={{ width: 200, fontSize: 14, lineBreak: "anywhere" }}>{accountNumber}</p>
                 </div>
-                <QRCode size={128} value={accountNumber} />
-              </>
+                <div style={{
+                  borderWidth: 10,
+                  borderColor: "grey",
+                  borderStyle: "solid",
+                  height: 276,
+                  width: 276,
+                }}><QRCode value={accountNumber} /></div>
+              </div>
             )}
 
             {privateKey && (
-              <>
-                <h1>Private Key</h1>
-                <h2>Withdraw / Spend</h2>
+              <div className="keyContainer">
+                <h2>Private Key / Signing Key</h2>
+                <h3>Withdraw / Spend</h3>
                 <div>
                   <p style={{ width: 200, fontSize: 14, lineBreak: "anywhere" }}>{privateKey}</p>
                 </div>
-                <QRCode size={128} value={privateKey} />
-              </>
+                <div style={{
+                  borderWidth: 10,
+                  borderColor: "grey",
+                  borderStyle: "solid",
+                  height: 276,
+                  width: 276,
+                }}><QRCode value={privateKey} /></div>
+              </div>
             )}
           </div>
 
-        </div>)}
-    </div>
+        </div>)
+      }
+    </div >
   );
 }
