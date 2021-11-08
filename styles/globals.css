@@ -15,6 +15,40 @@ a {
   box-sizing: border-box;
 }
 
+.info-box {
+  width: 320px;
+  padding: 10px;
+}
+
+.alert {
+  background-color: #fff3cd;
+  padding: 10px;
+}
+
+.show-print {
+  display: none;
+}
+
+.keyContainer {
+  padding: 20px;
+}
+
+.area {
+  border-color: red;
+  background-color: rgba(200, 20, 18, 0.3);
+  text-align: center;
+}
+
+.area:hover {
+  border-color: rgb(0, 128, 0);
+  background-color: rgba(0, 128, 0, 0.3);
+}
+
+.area.locked {
+  border-color: grey;
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
 @page {
   size: A4;
 }
@@ -27,8 +61,24 @@ a {
   .hide-print {
     display: none;
   }
+  .show-print {
+    display: block;
+  }
 
   @page :header {
     display: none;
+  }
+}
+
+.content-container {
+  display: flex;
+}
+
+@media screen and (max-width: 480px) {
+  .keyContainer {
+    display: block;
+  }
+  .content-container {
+    display: block;
   }
 }
