@@ -1,0 +1,13 @@
+.base {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.default {
+  background-color: transparent;
+}
+
+.primary {
+  background-color: black;
+  color: #f2f2f2;
+}

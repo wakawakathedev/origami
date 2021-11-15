@@ -2,8 +2,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
 }
 
 a {
@@ -47,6 +47,15 @@ a {
 .area.locked {
   border-color: grey;
   background-color: rgba(128, 128, 128, 0.3);
+}
+
+.content {
+  padding: 0 2em;
+  border-bottom: 1px solid black;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  max-width: 1024px;
 }
 
 @page {

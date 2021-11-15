@@ -1,0 +1,38 @@
+.step aside {
+  position: relative;
+  background-color: black;
+}
+
+.step .content {
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 2em;
+  max-width: 1024px;
+  flex: 1;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .content article {
+    width: 50%;
+  }
+
+  .content aside {
+    width: 50%;
+  }
+
+  .content aside .imageContainer {
+    padding: 2em;
+    justify-content: center;
+    display: flex;
+  }
+
+  .image {
+    height: 320px;
+    width: 320px;
+    border: 1px solid white;
+    border-radius: 4px;
+  }
+}
