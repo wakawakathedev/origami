@@ -1,15 +1,18 @@
+import Link from 'next/link'
 import Image from 'next/image'
 
 import Button from '../Button'
 
 import styles from './Header.module.css'
 
-export default function Header() {
+export default function Header({ showButton }) {
   return (
     <header className={styles.header}>
-      <Image src="/Logo.svg" height={80} width={100} />
+      <Link href="/">
+        <Image src="/Logo.svg" height={80} width={100} />
+      </Link>
 
-      <Button title="Create Wallet" />
+      {showButton && <Button title="Create Wallet" href="/wallet" />}
     </header>
   )
 }

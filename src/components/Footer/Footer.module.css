@@ -7,11 +7,3 @@
   padding-left: 2em;
   padding-right: 2em;
 }
-
-.content {
-  padding: 0 2em;
-  border-bottom: 1px solid black;
-  width: 100%;
-  justify-content: center;
-  display: flex;
-}

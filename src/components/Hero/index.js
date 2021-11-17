@@ -11,7 +11,7 @@ export default function Hero() {
 
           <p>Origami is brought you by the team behind tnbcrow. We aim to provide services that can compliment your tnbc experience, both online and offline.</p>
 
-          <Button type="primary" title="Create Wallet" />
+          <Button type="primary" title="Create Wallet" href="/wallet" />
         </article>
 
         <div className={styles.imageContainer}>
