@@ -8,6 +8,10 @@
   /* height: 100vh; */
 }
 
+.center {
+  text-align: center;
+}
+
 .main {
   padding: 5rem 0;
   flex: 1;
@@ -50,6 +54,17 @@
   font-size: 4rem;
 }
 
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  opacity: 0.3;
+  z-index: -1;
+}
+
 .title,
 .description {
   text-align: center;
@@ -58,6 +73,13 @@
 .description {
   line-height: 1.5;
   font-size: 1.5rem;
+}
+
+.tiny {
+  font-size: 0.7em;
+  line-height: 1em;
+  margin-bottom: 1em;
+  display: block;
 }
 
 .code {

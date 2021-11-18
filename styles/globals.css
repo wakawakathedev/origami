@@ -37,6 +37,8 @@ a {
   border-color: red;
   background-color: rgba(200, 20, 18, 0.3);
   text-align: center;
+  position: relative;
+  padding: 10px;
 }
 
 .area:hover {

@@ -30,9 +30,8 @@
   }
 
   .image {
-    height: 320px;
-    width: 320px;
-    border: 1px solid white;
+    height: 256px;
+    width: 256px;
     border-radius: 4px;
   }
 }

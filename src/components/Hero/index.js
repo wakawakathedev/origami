@@ -1,4 +1,4 @@
-
+import Image from "next/image"
 import Button from '../Button'
 import styles from './Hero.module.css'
 
@@ -16,6 +16,11 @@ export default function Hero() {
 
         <div className={styles.imageContainer}>
 
+          <Image src="/assets/hero.svg"
+            layout="intrinsic"
+            height={356}
+            width={462}
+          />
         </div>
       </div>
     </section>
