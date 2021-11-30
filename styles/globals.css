@@ -15,11 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-.info-box {
-  width: 320px;
-  padding: 10px;
-}
-
 .alert {
   background-color: #fff3cd;
   padding: 10px;

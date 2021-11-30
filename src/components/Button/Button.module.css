@@ -5,9 +5,24 @@
 
 .default {
   background-color: transparent;
+  border-color: rgba(128, 128, 128, 1);
 }
 
 .primary {
   background-color: black;
   color: #f2f2f2;
+}
+
+.base:hover {
+  cursor: pointer;
+}
+
+.default:hover {
+  border-color: rgba(128, 128, 128, 0.8);
+  background: rgba(220, 220, 220, 0.9);
+}
+
+.primary:hover {
+  background-color: rgba(33, 33, 33, 0.8);
+  border-color: rgba(33, 33, 33, 0.8);
 }

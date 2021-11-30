@@ -5,7 +5,34 @@ import Header from "../../src/components/Header";
 
 import { useIsOnline } from '../../src/hooks/useIsOnline'
 
-import styles from '../../styles/Home.module.css'
+import styles from '../../styles/Wallet.module.css'
+
+const steps = [{
+  prevStep: null,
+  nextStep: "9b379566a49fb6234c6a00336988daee",
+  id: "83f7cf34254500666d037685978d8a26",
+  title: "Important",
+  description: "Please go offline",
+}, {
+  prevStep: "83f7cf34254500666d037685978d8a26",
+  nextStep: "a6572c27e2f456686d1481ee2b826d09",
+  id: "9b379566a49fb6234c6a00336988daee",
+  title: "Step 1",
+  description: "Randomise the secret key"
+}, {
+  prevStep: "9b379566a49fb6234c6a00336988daee",
+  nextStep: "ef934aac53b3b615d92d8165be38e762",
+  id: "a6572c27e2f456686d1481ee2b826d09",
+  title: "Step 2",
+  description: "Select the Design",
+}, {
+  prevStep: "a6572c27e2f456686d1481ee2b826d09",
+  nextStep: null,
+  id: "ef934aac53b3b615d92d8165be38e762",
+  title: "Step 3",
+  description: "Print/Save the wallet",
+}]
+
 
 export default function Wallet() {
   // const isOnline = useIsOnline()
@@ -50,8 +77,13 @@ export default function Wallet() {
     }
   }, [isOnline])
 
+  // const selectDesign = () => {
+
+  // }
+
 
   useEffect(() => {
+    // AccountAreaRef?.current?.addEventListener('click', handleMouseMove)
     if (!isLocked && !isOnline && typeof window !== 'undefined') {
       AccountAreaRef?.current?.addEventListener('mousemove', handleMouseMove)
     } else {
@@ -66,8 +98,9 @@ export default function Wallet() {
   return (
     <>
       <Header showButton={false} />
+
       <div className={styles.container}>
-        <section className="hide-print info-box">
+        {/* <section className="hide-print info-box">
 
           <h2 className={styles.center}>Online Status: {isOnline ? "Online" : "Offline"}</h2>
           {isOnline && (
@@ -82,9 +115,22 @@ export default function Wallet() {
               <p>Please go offline</p>
             </div>
           )}
+        </section> */}
+
+        <section className="hide-print">
+          <h2>Online Status: {isOnline ? "Yes" : "No"}</h2>
+
+          <div className={styles.infoBox}>
+            <p>Origami is a paper wallet generator for thenewboston blockchain.</p>
+            <p>The user can generate custom paper wallets which can be printed offline.</p>
+          </div>
         </section>
 
-        {!isOnline && (
+        <section className="hide-print">
+
+        </section>
+
+        {/* {!isOnline && (
           <section>
             <div className="hide-print" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', flex: 1, padding: 10, alignItems: 'center' }}>
 
@@ -170,7 +216,7 @@ export default function Wallet() {
 
             </div>
           </section>
-        )}
+        )} */}
       </div>
     </>
   );

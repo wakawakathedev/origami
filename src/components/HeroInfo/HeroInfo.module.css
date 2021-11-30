@@ -33,6 +33,11 @@
   margin-top: calc(15%);
 }
 
+.important {
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
 @media screen and (min-width: 768px) {
   .content article {
     padding-right: 2em;

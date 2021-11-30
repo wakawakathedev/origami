@@ -23,9 +23,11 @@ export default function HeroInfo() {
         <article>
           <h1>Getting to know your paper wallet</h1>
 
-          <p>This Paper wallet represents your  deposit and withdrawal methods.<br />The Public key is used to deposit and verify your wallet amounts. <br />The Private key is used to withdraw and spend the tnbc in your wallet.</p>
+          <p>This Paper wallet represents your  deposit and withdrawal methods.</p>
+          <p>The Public key is used to recieve funds and is used to verify a digital signature and ownership of a private key.</p>
+          <p>The Private key is used to withdraw and spend the tnbc in your wallet.</p>
 
-          <h3>Do <em>NOT</em> reveal your private key to anyone.</h3>
+          <h3 className={styles.important}>Do not reveal your private key.</h3>
         </article>
       </div>
     </section>
