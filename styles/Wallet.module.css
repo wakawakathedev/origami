@@ -10,3 +10,13 @@
   width: 550px;
   padding: 10px 0;
 }
+
+.keyContainer {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-content: center;
+}
+.tiny {
+  font-size: 0.8em;
+}

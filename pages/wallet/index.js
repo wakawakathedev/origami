@@ -33,16 +33,17 @@ const steps = [{
   description: "Print/Save the wallet",
 }]
 
+const LOCK_THRESHOLD = 20
 
 export default function Wallet() {
-  // const isOnline = useIsOnline()
-  const isOnline = false
-
+  const isOnline = useIsOnline()
   const [isLocked, toggleLock] = useState(false)
+  const [canPrint, togglePrint] = useState(false)
   const [accountNumber, setAccountNumber] = useState('')
   const [privateKey, setPrivateKey] = useState('')
-
-  const [points, setPoints] = useState([])
+  
+  const [adding, toggleAdd] = useState(false)
+  const [count, addCount] = useState(0)
 
   const AccountAreaRef = useRef(null)
 
@@ -53,14 +54,19 @@ export default function Wallet() {
   }
 
   const generateNewSeed = useCallback((e) => {
-    const rect = e.target.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const subpoints = points
-    subpoints.push({ x, y })
+    if (adding) return
 
-    setPoints(subpoints)
-  }, [points, setPoints])
+    else {
+      toggleAdd(true)
+      requestAnimationFrame(() => {
+        addCount(count++)
+        toggleAdd(false)
+        if (count >= LOCK_THRESHOLD) {
+          togglePrint(true)
+        }
+      })
+    }
+  }, [count, addCount])
 
   const handleMouseMove = useCallback((event) => {
     generateNewSeed(event)
@@ -77,13 +83,8 @@ export default function Wallet() {
     }
   }, [isOnline])
 
-  // const selectDesign = () => {
-
-  // }
-
 
   useEffect(() => {
-    // AccountAreaRef?.current?.addEventListener('click', handleMouseMove)
     if (!isLocked && !isOnline && typeof window !== 'undefined') {
       AccountAreaRef?.current?.addEventListener('mousemove', handleMouseMove)
     } else {
@@ -100,29 +101,13 @@ export default function Wallet() {
       <Header showButton={false} />
 
       <div className={styles.container}>
-        {/* <section className="hide-print info-box">
-
-          <h2 className={styles.center}>Online Status: {isOnline ? "Online" : "Offline"}</h2>
-          {isOnline && (
-            <>
-              <p>Origami is a paper wallet generator for thenewboston blockchain, to be used when the browser is offline.</p>
-              <p>The user can generate custom paper wallets which can be printed offline.</p>
-            </>
-          )}
-
-          {isOnline && (
-            <div className="alert warning">
-              <p>Please go offline</p>
-            </div>
-          )}
-        </section> */}
-
         <section className="hide-print">
           <h2>Online Status: {isOnline ? "Yes" : "No"}</h2>
 
           <div className={styles.infoBox}>
             <p>Origami is a paper wallet generator for thenewboston blockchain.</p>
             <p>The user can generate custom paper wallets which can be printed offline.</p>
+            <p style={{ textDecoration: "underline" }}><strong>Please go offline to generate a paper wallet.</strong></p>
           </div>
         </section>
 
@@ -130,7 +115,7 @@ export default function Wallet() {
 
         </section>
 
-        {/* {!isOnline && (
+        {!isOnline && (
           <section>
             <div className="hide-print" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', flex: 1, padding: 10, alignItems: 'center' }}>
 
@@ -140,30 +125,29 @@ export default function Wallet() {
                 <button
                   style={{ marginBottom: 10 }}
                   className="hide-print"
-                  disabled={!isLocked}
+                  disabled={!canPrint}
                   onClick={printOrSave}>Print or Save</button>
               </div>
 
-              <div className={`hide-print area ${isLocked ? 'locked' : ''}`} ref={AccountAreaRef} style={{ borderWidth: 5, borderStyle: 'dashed', padding: 10, width: 200, height: 200 }}>
+              <div 
+                className={`hide-print area ${isLocked ? 'locked' : ''}`} 
+                ref={AccountAreaRef} 
+                style={{ 
+                  borderWidth: 5, 
+                  borderStyle: 'dashed', 
+                  padding: 10, 
+                  width: 200, 
+                  height: 200 
+                }}>
                 <div className={styles.overlay}>
-                  {points?.map(point => {
-                    return (<div style={{
-                      left: point.x,
-                      top: point.y,
-                      backgroundColor: "gray",
-                      height: 10,
-                      width: 10,
-                      display: "block",
-                      position: "absolute",
-                    }} />)
-                  })}
+                  {count} / {20}
                 </div>
 
                 <div>
                   {!isLocked && (
                     <>
                       <p>Step 1: Move your cursor within the dashed area. </p>
-                      <span className={styles.tiny}>Click "lock account" to stop randomly generating.</span>
+                      <span className={styles.tiny}>Click "Lock" to stop randomly generating.</span>
                     </>
                   )}
                   {isLocked && (
@@ -173,7 +157,11 @@ export default function Wallet() {
                     </>
                   )}
                 </div>
-                <button className="hide-print" style={{ marginBottom: 10 }} onClick={lockAccount}>{isLocked ? 'Unlock' : 'Lock'} Account</button>
+                <button 
+                    className="hide-print" 
+                    style={{ margin: 10 }} 
+                    disabled={count < LOCK_THRESHOLD}
+                    onClick={lockAccount}>{isLocked ? 'Unlock' : 'Lock'} Account</button>
               </div>
 
             </div>
@@ -181,11 +169,11 @@ export default function Wallet() {
 
             <div className="content-container">
               {accountNumber && (
-                <div className="keyContainer">
+                <div className={styles.keyContainer}>
                   <h2>Public Key / Account No.</h2>
                   <h3>Deposit / Verify</h3>
-                  <div>
-                    <p style={{ width: 200, fontSize: 14, lineBreak: "anywhere" }}>{accountNumber}</p>
+                  <div style={{ width: 200, alignSelf: "center", display: "flex"}}>
+                    <p style={{ width: 200, fontSize: 14, lineBreak: "anywhere", textAlign: "center" }}>{accountNumber}</p>
                   </div>
                   <div style={{
                     borderWidth: 10,
@@ -193,16 +181,18 @@ export default function Wallet() {
                     borderStyle: "solid",
                     height: 276,
                     width: 276,
-                  }}><QRCode value={accountNumber} /></div>
+                  }}>
+                    <QRCode value={accountNumber} />
+                  </div>
                 </div>
               )}
 
               {privateKey && (
-                <div className="keyContainer">
+                <div className={styles.keyContainer}>
                   <h2>Private Key / Signing Key</h2>
                   <h3>Withdraw / Spend</h3>
-                  <div>
-                    <p style={{ width: 200, fontSize: 14, lineBreak: "anywhere" }}>{privateKey}</p>
+                  <div style={{ width: 200, alignSelf: "center", display: "flex"}}>
+                    <p style={{ width: 200, fontSize: 14, lineBreak: "anywhere", textAlign: "center" }}>{privateKey}</p>
                   </div>
                   <div style={{
                     borderWidth: 10,
@@ -210,13 +200,15 @@ export default function Wallet() {
                     borderStyle: "solid",
                     height: 276,
                     width: 276,
-                  }}><QRCode value={privateKey} /></div>
+                  }}>
+                    <QRCode value={privateKey} />
+                  </div>
                 </div>
               )}
 
             </div>
           </section>
-        )} */}
+        )}
       </div>
     </>
   );
