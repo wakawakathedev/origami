@@ -36,8 +36,7 @@ import styles from '../../styles/Wallet.module.css'
 const LOCK_THRESHOLD = 20
 
 export default function Wallet() {
-  // const isOnline = useIsOnline()
-  const isOnline = false
+  const isOnline = useIsOnline()
   const [isLocked, toggleLock] = useState(false)
   const [canPrint, togglePrint] = useState(false)
   const [accountNumber, setAccountNumber] = useState('')
