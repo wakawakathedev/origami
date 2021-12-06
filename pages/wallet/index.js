@@ -7,32 +7,6 @@ import { useIsOnline } from '../../src/hooks/useIsOnline'
 
 import styles from '../../styles/Wallet.module.css'
 
-// const steps = [{
-//   prevStep: null,
-//   nextStep: "9b379566a49fb6234c6a00336988daee",
-//   id: "83f7cf34254500666d037685978d8a26",
-//   title: "Important",
-//   description: "Please go offline",
-// }, {
-//   prevStep: "83f7cf34254500666d037685978d8a26",
-//   nextStep: "a6572c27e2f456686d1481ee2b826d09",
-//   id: "9b379566a49fb6234c6a00336988daee",
-//   title: "Step 1",
-//   description: "Randomise the secret key"
-// }, {
-//   prevStep: "9b379566a49fb6234c6a00336988daee",
-//   nextStep: "ef934aac53b3b615d92d8165be38e762",
-//   id: "a6572c27e2f456686d1481ee2b826d09",
-//   title: "Step 2",
-//   description: "Select the Design",
-// }, {
-//   prevStep: "a6572c27e2f456686d1481ee2b826d09",
-//   nextStep: null,
-//   id: "ef934aac53b3b615d92d8165be38e762",
-//   title: "Step 3",
-//   description: "Print/Save the wallet",
-// }]
-
 const LOCK_THRESHOLD = 20
 
 export default function Wallet() {
