@@ -9,7 +9,7 @@ export default function Header({ showButton }) {
   return (
     <header className={styles.header}>
       <Link href="/">
-        <Image src="/Logo.svg" height={80} width={100} />
+        <a><Image src="/Logo.svg" height={80} width={100} /></a>
       </Link>
 
       {showButton && <Button title="Create Wallet" href="/wallet" />}

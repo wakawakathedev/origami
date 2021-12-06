@@ -24,23 +24,7 @@ a {
   display: none;
 }
 
-.area {
-  border-color: red;
-  background-color: rgba(200, 20, 18, 0.3);
-  text-align: center;
-  position: relative;
-  padding: 10px;
-}
 
-.area:hover {
-  border-color: rgb(0, 128, 0);
-  background-color: rgba(0, 128, 0, 0.3);
-}
-
-.area.locked {
-  border-color: grey;
-  background-color: rgba(128, 128, 128, 0.3);
-}
 
 .content {
   padding: 0 2em;
@@ -74,6 +58,7 @@ a {
 
 .content-container {
   display: flex;
+  position: relative;
 }
 
 @media screen and (max-width: 480px) {

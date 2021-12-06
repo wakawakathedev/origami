@@ -7,41 +7,42 @@ import { useIsOnline } from '../../src/hooks/useIsOnline'
 
 import styles from '../../styles/Wallet.module.css'
 
-const steps = [{
-  prevStep: null,
-  nextStep: "9b379566a49fb6234c6a00336988daee",
-  id: "83f7cf34254500666d037685978d8a26",
-  title: "Important",
-  description: "Please go offline",
-}, {
-  prevStep: "83f7cf34254500666d037685978d8a26",
-  nextStep: "a6572c27e2f456686d1481ee2b826d09",
-  id: "9b379566a49fb6234c6a00336988daee",
-  title: "Step 1",
-  description: "Randomise the secret key"
-}, {
-  prevStep: "9b379566a49fb6234c6a00336988daee",
-  nextStep: "ef934aac53b3b615d92d8165be38e762",
-  id: "a6572c27e2f456686d1481ee2b826d09",
-  title: "Step 2",
-  description: "Select the Design",
-}, {
-  prevStep: "a6572c27e2f456686d1481ee2b826d09",
-  nextStep: null,
-  id: "ef934aac53b3b615d92d8165be38e762",
-  title: "Step 3",
-  description: "Print/Save the wallet",
-}]
+// const steps = [{
+//   prevStep: null,
+//   nextStep: "9b379566a49fb6234c6a00336988daee",
+//   id: "83f7cf34254500666d037685978d8a26",
+//   title: "Important",
+//   description: "Please go offline",
+// }, {
+//   prevStep: "83f7cf34254500666d037685978d8a26",
+//   nextStep: "a6572c27e2f456686d1481ee2b826d09",
+//   id: "9b379566a49fb6234c6a00336988daee",
+//   title: "Step 1",
+//   description: "Randomise the secret key"
+// }, {
+//   prevStep: "9b379566a49fb6234c6a00336988daee",
+//   nextStep: "ef934aac53b3b615d92d8165be38e762",
+//   id: "a6572c27e2f456686d1481ee2b826d09",
+//   title: "Step 2",
+//   description: "Select the Design",
+// }, {
+//   prevStep: "a6572c27e2f456686d1481ee2b826d09",
+//   nextStep: null,
+//   id: "ef934aac53b3b615d92d8165be38e762",
+//   title: "Step 3",
+//   description: "Print/Save the wallet",
+// }]
 
 const LOCK_THRESHOLD = 20
 
 export default function Wallet() {
-  const isOnline = useIsOnline()
+  // const isOnline = useIsOnline()
+  const isOnline = false
   const [isLocked, toggleLock] = useState(false)
   const [canPrint, togglePrint] = useState(false)
   const [accountNumber, setAccountNumber] = useState('')
   const [privateKey, setPrivateKey] = useState('')
-  
+
   const [adding, toggleAdd] = useState(false)
   const [count, addCount] = useState(0)
 
@@ -58,6 +59,7 @@ export default function Wallet() {
 
     else {
       toggleAdd(true)
+
       requestAnimationFrame(() => {
         addCount(count++)
         toggleAdd(false)
@@ -101,111 +103,92 @@ export default function Wallet() {
       <Header showButton={false} />
 
       <div className={styles.container}>
-        <section className="hide-print">
-          <h2>Online Status: {isOnline ? "Yes" : "No"}</h2>
+        {isOnline && (
+          <>
+            <h2>Online Status: {isOnline ? "Yes" : "No"}</h2>
 
-          <div className={styles.infoBox}>
-            <p>Origami is a paper wallet generator for thenewboston blockchain.</p>
-            <p>The user can generate custom paper wallets which can be printed offline.</p>
-            <p style={{ textDecoration: "underline" }}><strong>Please go offline to generate a paper wallet.</strong></p>
-          </div>
-        </section>
-
-        <section className="hide-print">
-
-        </section>
+            <section className="hide-print">
+              <div className={styles.infoBox}>
+                <p>Origami is a paper wallet generator for thenewboston blockchain.</p>
+                <p>The user can generate custom paper wallets which can be printed offline.</p>
+                <p style={{ textDecoration: "underline" }}><strong>Please go offline to generate a paper wallet.</strong></p>
+              </div>
+            </section>
+          </>
+        )}
 
         {!isOnline && (
           <section>
-            <div className="hide-print" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', flex: 1, padding: 10, alignItems: 'center' }}>
+            <div className={styles.hidePrint}>
+              <div className={styles.information}>
+                <p className="hide-print">Account Locked: {isLocked ? "Locked" : "Unlocked"}</p>
 
-              <p className="hide-print">Account Locked: {isLocked ? "Locked" : "Unlocked"}</p>
-
-              <div className="hide-print">
-                <button
-                  style={{ marginBottom: 10 }}
-                  className="hide-print"
-                  disabled={!canPrint}
-                  onClick={printOrSave}>Print or Save</button>
-              </div>
-
-              <div 
-                className={`hide-print area ${isLocked ? 'locked' : ''}`} 
-                ref={AccountAreaRef} 
-                style={{ 
-                  borderWidth: 5, 
-                  borderStyle: 'dashed', 
-                  padding: 10, 
-                  width: 200, 
-                  height: 200 
-                }}>
-                <div className={styles.overlay}>
-                  {count} / {20}
+                <div className="hide-print">
+                  <button
+                    style={{ marginBottom: 10 }}
+                    className="hide-print"
+                    disabled={!canPrint}
+                    onClick={printOrSave}>Print or Save</button>
                 </div>
 
-                <div>
-                  {!isLocked && (
-                    <>
-                      <p>Step 1: Move your cursor within the dashed area. </p>
-                      <span className={styles.tiny}>Click "Lock" to stop randomly generating.</span>
-                    </>
-                  )}
-                  {isLocked && (
-                    <>
-                      <p>Step 2: Click the button above to save/print</p>
-                      <span className={styles.tiny}>Click "Unlock" to generate a new account.</span>
-                    </>
-                  )}
-                </div>
-                <button 
-                    className="hide-print" 
-                    style={{ margin: 10 }} 
+                <div
+                  className={isLocked ? styles.areaLocked : styles.area}
+                  ref={AccountAreaRef}>
+                  <div className={styles.overlay}>
+                    {count} / {20}
+                  </div>
+
+                  <div>
+                    {!isLocked && (
+                      <>
+                        <p>Step 1: Move your cursor within the dashed area. </p>
+                        <span className={styles.tiny}>Click "Lock" to stop randomly generating.</span>
+                      </>
+                    )}
+                    {isLocked && (
+                      <>
+                        <p>Step 2: Click the button above to save/print</p>
+                        <span className={styles.tiny}>Click "Unlock" to generate a new account.</span>
+                      </>
+                    )}
+                  </div>
+                  <button
+                    className="hide-print"
+                    style={{ margin: 10 }}
                     disabled={count < LOCK_THRESHOLD}
                     onClick={lockAccount}>{isLocked ? 'Unlock' : 'Lock'} Account</button>
+                </div>
               </div>
-
             </div>
 
 
-            <div className="content-container">
-              {accountNumber && (
-                <div className={styles.keyContainer}>
-                  <h2>Public Key / Account No.</h2>
-                  <h3>Deposit / Verify</h3>
-                  <div style={{ width: 200, alignSelf: "center", display: "flex"}}>
-                    <p style={{ width: 200, fontSize: 14, lineBreak: "anywhere", textAlign: "center" }}>{accountNumber}</p>
+            <div className={styles.contentContainer}>
+              <div className={styles.card}>
+                <div className={styles.cardBackground} />
+                {accountNumber && (
+                  <div className={styles.publicKeyCardContainer}>
+                    <h2 className={styles.highlight}>Public Key / Account No.</h2>
+                    <h3 className={styles.highlight}>Deposit / Verify</h3>
+                    
+                    <p className={styles.highlightKey}>{accountNumber}</p>
+                    <div className={styles.qrCodeContainer}>
+                      <QRCode value={accountNumber} />
+                    </div>
                   </div>
-                  <div style={{
-                    borderWidth: 10,
-                    borderColor: "grey",
-                    borderStyle: "solid",
-                    height: 276,
-                    width: 276,
-                  }}>
-                    <QRCode value={accountNumber} />
-                  </div>
-                </div>
-              )}
+                )}
 
-              {privateKey && (
-                <div className={styles.keyContainer}>
-                  <h2>Private Key / Signing Key</h2>
-                  <h3>Withdraw / Spend</h3>
-                  <div style={{ width: 200, alignSelf: "center", display: "flex"}}>
-                    <p style={{ width: 200, fontSize: 14, lineBreak: "anywhere", textAlign: "center" }}>{privateKey}</p>
+                {privateKey && (
+                  <div className={styles.privateKeyCardContainer}>
+                    <h2 className={styles.highlight}>Private Key / Signing Key</h2>
+                    <h3 className={styles.highlight}>Withdraw / Spend</h3>
+                    
+                    <p className={styles.highlightKey}>{privateKey}</p>
+                    <div className={styles.qrCodeContainer}>
+                      <QRCode value={privateKey} />
+                    </div>
                   </div>
-                  <div style={{
-                    borderWidth: 10,
-                    borderColor: "grey",
-                    borderStyle: "solid",
-                    height: 276,
-                    width: 276,
-                  }}>
-                    <QRCode value={privateKey} />
-                  </div>
-                </div>
-              )}
-
+                )}
+              </div>
             </div>
           </section>
         )}
