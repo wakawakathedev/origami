@@ -1,11 +1,12 @@
 .container {
-  /* min-height: 100vh; */
-  padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* height: 100vh; */
+}
+
+.center {
+  text-align: center;
 }
 
 .main {
@@ -50,6 +51,17 @@
   font-size: 4rem;
 }
 
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  opacity: 0.3;
+  z-index: -1;
+}
+
 .title,
 .description {
   text-align: center;
@@ -58,6 +70,13 @@
 .description {
   line-height: 1.5;
   font-size: 1.5rem;
+}
+
+.tiny {
+  font-size: 0.7em;
+  line-height: 1em;
+  margin-bottom: 1em;
+  display: block;
 }
 
 .code {

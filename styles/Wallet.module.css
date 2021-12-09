@@ -1,0 +1,205 @@
+@media print {
+  .container,
+  .statusContainer,
+  .hidePrint {
+    display: none !important;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 4em;
+}
+
+.infoBox {
+  width: 550px;
+  padding: 10px 0;
+  background: beige;
+}
+
+.publicKeyCardContainer {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+
+  border-right-color:rgba(0, 128, 0, 0.3);
+  border-right-width: 2px;
+  border-right-style: dashed; 
+}
+
+.status {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #444;
+  padding: 1em;
+}
+
+.instruction {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.disableSelect {
+  user-select: none;
+}
+
+.generatedAccount {
+  overflow: hidden;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  width: 200px;
+  padding: .5em;
+  border-width: 5px;
+  border-style: dashed;
+  border-color: #000;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 45px;
+}
+
+.statusContainer {
+  max-width: 1024px;
+  margin: 0.5em auto;
+  width: 100%;
+  align-items: flex-end;
+  flex-direction: column;
+  display: flex;
+}
+
+.privateKeyCardContainer { 
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.tiny {
+  font-size: 0.8em;
+}
+
+.qrCodeContainer {
+  border-width: 10px;
+  border-color: grey;
+  border-style: solid;
+  height: 276px;
+  width: 276px;
+}
+
+.keyContainer {
+  align-self: center; 
+  display: flex;
+}
+
+.highlight {
+  background-color: #efefefcd;
+  padding: 2em;
+}
+
+.highlightKey {
+  background-color: #efefefcd;
+  padding: 2em;
+  width: 200px; 
+  font-size: 14px; 
+  line-break: anywhere;
+  text-align: center;
+}
+
+.demo {
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  padding: 10px;
+  border-width: 5px;
+  border-style: dashed;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 5px;
+}
+
+.areaActive {
+  border-color: red;
+  background-color: rgba(200, 20, 18, 0.3);
+  text-align: center;
+  position: relative;
+  padding: 10px;
+  border-width: 5px;
+  border-style: dashed;
+  width: 200px;
+  height: 200px;
+}
+
+.areaContainer {
+  margin-bottom: 5px;
+}
+
+.areaActive:hover {
+  border-color: rgb(0, 128, 0);
+  background-color: rgba(0, 128, 0, 0.3);
+}
+
+.areaContent {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.areaLocked {
+  border-color: grey;
+  background-color: rgba(128, 128, 128, 0.3);
+  text-align: center;
+  position: relative;
+  padding: 10px;
+  border-width: 5px;
+  border-style: dashed;
+  width: 200px;
+  height: 200px;
+}
+
+
+
+
+.information { 
+  display: flex; 
+  justify-content: center; 
+  flex-direction: column; 
+  flex: 1; 
+  padding: 10px;
+  align-items: center;
+}
+
+.card {
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border-width: 2px;
+  border-style: dashed;
+  border-color:rgba(0, 128, 0, 0.3);
+}
+
+.cardBackground {
+  opacity: .3;
+  background-color: #e5e5f7;
+  background-image:  linear-gradient(30deg, #440044 12%, transparent 12.5%, transparent 87%, #440044 87.5%, #440044), linear-gradient(150deg, #440044 12%, transparent 12.5%, transparent 87%, #440044 87.5%, #440044), linear-gradient(30deg, #440044 12%, transparent 12.5%, transparent 87%, #440044 87.5%, #440044), linear-gradient(150deg, #440044 12%, transparent 12.5%, transparent 87%, #440044 87.5%, #440044), linear-gradient(60deg, #44004477 25%, transparent 25.5%, transparent 75%, #44004477 75%, #44004477), linear-gradient(60deg, #44004477 25%, transparent 25.5%, transparent 75%, #44004477 75%, #44004477);
+  background-size: 46px 81px;
+  background-position: 0 0, 0 0, 23px 40px, 23px 40px, 0 0, 23px 40px;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.contentContainer {
+  margin-top: 2em;
+  display: flex;
+  position: relative;
+}
