@@ -27,9 +27,13 @@
   }
 
   .content .imageContainer {
-    margin-left: 2em;
     margin-top: 2em;
     margin-bottom: 2em;
     width: 50%;
+    display:flex;
+    flex: 1;
+    justify-items: center;
+    align-items: flex-end;
+    flex-direction: column;
   }
 }
