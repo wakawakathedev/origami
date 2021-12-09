@@ -20,5 +20,5 @@ export const useIsOnline = () => {
     }
   }, [isOnline])
 
-  return isOnline
+  return { isOnline, setIsOnline }
 }

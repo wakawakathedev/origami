@@ -10,7 +10,7 @@ import styles from '../../styles/Wallet.module.css'
 const LOCK_THRESHOLD = 20
 
 export default function Wallet() {
-  const isOnline = useIsOnline()
+  const {isOnline, setIsOnline} = useIsOnline()
   const [isLocked, toggleLock] = useState(false)
   const [canPrint, togglePrint] = useState(false)
   const [accountNumber, setAccountNumber] = useState('')
@@ -94,6 +94,11 @@ export default function Wallet() {
             </section>
           </>
         )}
+
+        {isOnline && (<button
+          className='hide-print'
+          style={{ margin: 10 }}
+          onClick={() => setIsOnline(false)}>Proceed Anyway</button>)}
 
         {!isOnline && (
           <div className="hide-print">
