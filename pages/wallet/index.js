@@ -10,7 +10,8 @@ import styles from '../../styles/Wallet.module.css'
 const LOCK_THRESHOLD = 20
 
 export default function Wallet() {
-  const isOnline = useIsOnline()
+  // const isOnline = useIsOnline()
+  const isOnline = false
   const [isLocked, toggleLock] = useState(false)
   const [canPrint, togglePrint] = useState(false)
   const [accountNumber, setAccountNumber] = useState('')
@@ -76,10 +77,15 @@ export default function Wallet() {
       <Header showButton={false} />
 
       <div className={styles.container}>
+        <div className={styles.statusContainer}>
+          <div className={styles.status}>
+            <span>Online Status: {isOnline ? "Yes 🔴" : "No 🟢"}</span><br />
+            {isOnline && <span className={styles.instruction}>Go Offline</span>}
+          </div>
+        </div>
+
         {isOnline && (
           <>
-            <h2>Online Status: {isOnline ? "Yes" : "No"}</h2>
-
             <section className="hide-print">
               <div className={styles.infoBox}>
                 <p>Origami is a paper wallet generator for thenewboston blockchain.</p>
@@ -88,6 +94,16 @@ export default function Wallet() {
               </div>
             </section>
           </>
+        )}
+
+        {!isOnline && (
+          <div className="hide-print">
+            <div className={styles.infoBox}>
+              <p className={styles.tiny}>Step 1: Move your cursor within the dashed area.</p>
+              <p className={styles.tiny}>Step 2: Lock the account number.</p>
+              <p className={styles.tiny}>Step 3: Click the button above to save/print.</p>
+            </div>
+          </div>
         )}
 
         {!isOnline && (
@@ -104,65 +120,59 @@ export default function Wallet() {
                     onClick={printOrSave}>Print or Save</button>
                 </div>
 
-                <div
-                  className={isLocked ? styles.areaLocked : styles.area}
-                  ref={AccountAreaRef}>
-                  <div className={styles.overlay}>
-                    {count} / {20}
-                  </div>
 
-                  <div>
-                    {!isLocked && (
-                      <>
-                        <p>Step 1: Move your cursor within the dashed area. </p>
-                        <span className={styles.tiny}>Click "Lock" to stop randomly generating.</span>
-                      </>
-                    )}
-                    {isLocked && (
-                      <>
-                        <p>Step 2: Click the button above to save/print</p>
-                        <span className={styles.tiny}>Click "Unlock" to generate a new account.</span>
-                      </>
-                    )}
+                <div className={styles.areaContainer}>
+                  <div
+                    className={isLocked ? styles.areaLocked : styles.areaLocked}
+                    ref={AccountAreaRef}>
+                    <div className={styles.areaContent}>
+                      <div className={styles.overlay}>
+                        {count} / {20}
+                      </div>
+                      <button
+                        className='hide-print'
+                        style={{ margin: 10 }}
+                        disabled={count < LOCK_THRESHOLD}
+                        onClick={lockAccount}>{isLocked ? 'Unlock' : 'Lock'} Account</button>
+                    </div>
                   </div>
-                  <button
-                    className="hide-print"
-                    style={{ margin: 10 }}
-                    disabled={count < LOCK_THRESHOLD}
-                    onClick={lockAccount}>{isLocked ? 'Unlock' : 'Lock'} Account</button>
+                </div>
+                <div
+                  className={styles.generatedAccount}
+                >{accountNumber || '...'}</div>
+              </div>
+            </div>
+
+
+            {isLocked && (
+              <div className={styles.contentContainer}>
+                <div className={styles.card}>
+                  <div className={styles.cardBackground} />
+                  {accountNumber && (
+                    <div className={styles.publicKeyCardContainer}>
+                      <h2 className={styles.highlight}>Public Key / Account No.</h2>
+                      <h3 className={styles.highlight}>Deposit / Verify</h3>
+
+                      <p className={styles.highlightKey}>{accountNumber}</p>
+                      <div className={styles.qrCodeContainer}>
+                        <QRCode value={accountNumber} />
+                      </div>
+                    </div>
+                  )}
+
+                  {privateKey && (
+                    <div className={styles.privateKeyCardContainer}>
+                      <h2 className={styles.highlight}>Private Key / Signing Key</h2>
+                      <h3 className={styles.highlight}>Withdraw / Spend</h3>
+                      <p className={styles.highlightKey}>{privateKey}</p>
+                      <div className={styles.qrCodeContainer}>
+                        <QRCode value={privateKey} />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-
-
-            <div className={styles.contentContainer}>
-              <div className={styles.card}>
-                <div className={styles.cardBackground} />
-                {accountNumber && (
-                  <div className={styles.publicKeyCardContainer}>
-                    <h2 className={styles.highlight}>Public Key / Account No.</h2>
-                    <h3 className={styles.highlight}>Deposit / Verify</h3>
-                    
-                    <p className={styles.highlightKey}>{accountNumber}</p>
-                    <div className={styles.qrCodeContainer}>
-                      <QRCode value={accountNumber} />
-                    </div>
-                  </div>
-                )}
-
-                {privateKey && (
-                  <div className={styles.privateKeyCardContainer}>
-                    <h2 className={styles.highlight}>Private Key / Signing Key</h2>
-                    <h3 className={styles.highlight}>Withdraw / Spend</h3>
-                    
-                    <p className={styles.highlightKey}>{privateKey}</p>
-                    <div className={styles.qrCodeContainer}>
-                      <QRCode value={privateKey} />
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
+            )}
           </section>
         )}
       </div>

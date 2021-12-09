@@ -15,11 +15,10 @@ export default function Hero() {
         </article>
 
         <div className={styles.imageContainer}>
-
-          <Image src="/assets/hero.svg"
+          <Image src="/assets/movie.gif"
             layout="intrinsic"
-            height={356}
-            width={462}
+            height={375}
+            width={300}
           />
         </div>
       </div>

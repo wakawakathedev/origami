@@ -1,3 +1,11 @@
+@media print {
+  .container,
+  .statusContainer,
+  .hidePrint {
+    display: none !important;
+  }
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -10,6 +18,7 @@
 .infoBox {
   width: 550px;
   padding: 10px 0;
+  background: beige;
 }
 
 .publicKeyCardContainer {
@@ -24,13 +33,50 @@
   border-right-style: dashed; 
 }
 
+.status {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #444;
+  padding: 1em;
+}
+
+.instruction {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.disableSelect {
+  user-select: none;
+}
+
+.generatedAccount {
+  overflow: hidden;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  width: 200px;
+  padding: .5em;
+  border-width: 5px;
+  border-style: dashed;
+  border-color: #000;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 45px;
+}
+
+.statusContainer {
+  max-width: 1024px;
+  margin: 0.5em auto;
+  width: 100%;
+  align-items: flex-end;
+  flex-direction: column;
+  display: flex;
+}
+
 .privateKeyCardContainer { 
   display: flex;
   padding: 20px;
   flex-direction: column;
   align-content: center;
   align-items: center;
-
 }
 
 .tiny {
@@ -64,7 +110,19 @@
   text-align: center;
 }
 
-.area {
+.demo {
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  padding: 10px;
+  border-width: 5px;
+  border-style: dashed;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 5px;
+}
+
+.areaActive {
   border-color: red;
   background-color: rgba(200, 20, 18, 0.3);
   text-align: center;
@@ -76,9 +134,22 @@
   height: 200px;
 }
 
-.area:hover {
+.areaContainer {
+  margin-bottom: 5px;
+}
+
+.areaActive:hover {
   border-color: rgb(0, 128, 0);
   background-color: rgba(0, 128, 0, 0.3);
+}
+
+.areaContent {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
 }
 
 .areaLocked {
@@ -94,11 +165,7 @@
 }
 
 
-@media print {
-  .hidePrint {
-    display: none;
-  }
-}
+
 
 .information { 
   display: flex; 

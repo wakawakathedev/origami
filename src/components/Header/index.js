@@ -12,7 +12,7 @@ export default function Header({ showButton }) {
         <a><Image src="/Logo.svg" height={80} width={100} /></a>
       </Link>
 
-      {showButton && <Button title="Create Wallet" href="/wallet" />}
+      <Button title="Create Wallet" href="/wallet" />
     </header>
   )
 }
