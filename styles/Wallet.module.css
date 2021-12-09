@@ -1,5 +1,4 @@
 @media print {
-  .container,
   .statusContainer,
   .hidePrint {
     display: none !important;
