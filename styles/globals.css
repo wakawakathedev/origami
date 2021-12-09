@@ -2,8 +2,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
 }
 
 a {
@@ -15,11 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-.info-box {
-  width: 320px;
-  padding: 10px;
-}
-
 .alert {
   background-color: #fff3cd;
   padding: 10px;
@@ -29,24 +24,15 @@ a {
   display: none;
 }
 
-.keyContainer {
-  padding: 20px;
-}
 
-.area {
-  border-color: red;
-  background-color: rgba(200, 20, 18, 0.3);
-  text-align: center;
-}
 
-.area:hover {
-  border-color: rgb(0, 128, 0);
-  background-color: rgba(0, 128, 0, 0.3);
-}
-
-.area.locked {
-  border-color: grey;
-  background-color: rgba(128, 128, 128, 0.3);
+.content {
+  padding: 0 2em;
+  border-bottom: 1px solid black;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  max-width: 1024px;
 }
 
 @page {
@@ -72,6 +58,7 @@ a {
 
 .content-container {
   display: flex;
+  position: relative;
 }
 
 @media screen and (max-width: 480px) {
